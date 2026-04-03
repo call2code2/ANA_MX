@@ -14,8 +14,6 @@ from data_utils import get_common_words_with_pos
 # 5) SAVE
 
 
-#Variables
-
 
 conll_file = r"c:\Users\Utente\Desktop\VSCODE\Paisa\paisa.annotated.CoNLL.utf8"
 target_tags = ['S', 'V', 'A' ]

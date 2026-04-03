@@ -33,7 +33,7 @@ def main():
         check = input(f"  '{filename}' exists. Overwrite? (y/n): ").lower()
         if check != 'y': return
 
-    # --- d) CHOOSE TRAINING MODE 
+    # --- c) CHOOSE TRAINING MODE 
     print("\n2. Select Training Mode:")
     print("   [L] Lemmas (Better for synonyms/concepts: 'gatto' matches 'gatti')")
     print("   [W] Raw Words (Better for grammar: 'gatti' != 'gatto')")
