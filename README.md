@@ -53,6 +53,27 @@ Executes the primary analogy search and matrix creation.
 * **Translation & Processing**: A translation loop translates local indices to global indices. Loads rows of `df_golden` into pairs 1,2 (A:B) and (C:D). Gets the original matrix index to find associated matrix words and extracts vector norms for the already sorted indices.
 * **Final Output**: Applies filters (stopwords, close synonym, count), pushes to the heap, and saves the final output.
 
+### 5. data_utils.py
+
+#### a. Memory-Efficient Iterator (`SentenceIterator`)
+To handle large datasets without exceeding RAM limits, the `SentenceIterator` class processes the database sequentially. It keeps only a single sentence in memory at any given time.
+* **Smart Parsing:** Automatically skips commented lines (starting with `#`) and recognizes empty lines as sentence boundaries.
+* **Punctuation Filtering:** Automatically drops tokens tagged as `PUNCT`.
+* **Flexible Extraction:** Includes a toggle (`use_lemma`) to yield either the base lemma or the raw word from the text corpus. All yielded tokens are automatically lowercased.
+
+#### b. Vocabulary Validation (`is_real_word`)
+Before a word is counted, it passes through a strict validation function to ensure data quality. To be considered a "real word", a token must:
+* Be longer than a single letter.
+* Contain only alphabetic characters (dropping symbols, numbers, etc.).
+* Be recognized as a valid Italian word by the `pyspellchecker` library.
+
+#### c. Frequency & POS Aggregation (`get_common_words_with_pos`)
+This function extracts the higer frequency words from the dataset, while also resolving POS ambiguity.
+* **Targeted Filtering:** Only processes words that match specific target POS tags (e.g., 'S', 'V', 'A') and pass the `is_real_word` check.
+* **Counting:** Utilizes Python's `defaultdict` to safely aggregate counts without `KeyError` exceptions, and `Counter` to easily extract the top *N* most common words.
+* **Dominant POS Resolution:** If a lemma appears with multiple POS tags across the corpus, the script tracks the frequencies of each tag and assigns the word the tag it appears with most frequently. 
+* **Output:** Returns the top *N* words and a dictionary mapping each word to its dominant POS tag.
+
 
 
 
