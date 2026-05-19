@@ -41,7 +41,7 @@ Chooses a threshold span from the matrix to isolate relevant pairs.
 
 * **Threshold Filtering**: Loops through the matrix in chunks to filter the pairs accepted for the final CSV. Drops unrelated word pairs (similarity < 0.35) and perfect synonyms (similarity > 0.9).
 * **Deduplication**: Applies a mask that keeps just the upper triangle of the matrix to avoid duplicates (A-B, B-A).
-* **Outputs**: Saves the final results in a Pandas CSV.
+* **Outputs**: Saves the final results in a Pandas CSV. (`df_golden`)
 
 ### 4. Analogy Matrix (`ana_mat.py`)
 Executes the primary analogy search and matrix creation.
